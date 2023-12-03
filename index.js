@@ -6,7 +6,7 @@ const app = express()
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
 
-app.use(express.static(public))
+app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     res.render(`home`)
