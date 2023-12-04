@@ -9,6 +9,30 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 
+//Converter dados do formlário em objeto JavaScript
+app.use(express.urlencoded({
+    extended: true
+}))
+
+//Rotas
+app.post('/criar', (req, res) => {
+    const descricao = req.body.descricao
+    const completa = 0
+
+    const sql = `
+    INSERT INTO tarefas (descricao, completa)
+    VALUES ('${descricao}', '${completa}')
+    `
+
+    conexao.query(sql, (erro => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        res.redirect('/')
+    }))
+})
+
 app.get('/', (req, res) => {
     res.render(`home`)
 })
