@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+:root {
+   --bg-header-mobile: url(../imagens/bg-header-mobile-light.png);
+}
+
+header {
+    background-image: var(--bg-header-mobile);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 12.5rem;
+
+    padding: 3rem 1.75rem 0;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 2.5rem;
+}
+
+header div h1 {
+    color: #FFF;
+    text-transform: uppercase;
+}
