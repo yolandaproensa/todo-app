@@ -9,7 +9,7 @@ app.set('view engine', 'handlebars')
 
 app.use(express.static('public'))
 
-//Converter dados do formlário em objeto JavaScript
+//Converter dados do formulário em objeto JavaScript
 app.use(express.urlencoded({
     extended: true
 }))
@@ -22,6 +22,24 @@ app.post('/completar', (req, res) => {
     UPDATE tarefas
     SET completa = '1'
     WHERE id = ${ id }
+    `
+
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        res.redirect('/')
+    })
+})
+
+app.post('/descompletar', (req, res) => {
+    const id = req.body.id
+
+    const sql = `
+    UPDATE tarefas
+    SET completa = '0'
+    WHERE id = ${id}
     `
 
     conexao.query(sql, (erro) => {
@@ -68,8 +86,13 @@ app.get('/', (req, res) => {
                 completa: dado.completa === 0 ? false : true
             }
         })
+        const tarefasAtivas = tarefas.filter((tarefa) => {
+            return tarefa.completa === false && tarefa
+        })
 
-        res.render(`home`, { tarefas })
+        const quantidadeTarefasAtivas = tarefasAtivas.length
+
+        res.render(`home`, { tarefas, quantidadeTarefasAtivas })
     })
 })
 
