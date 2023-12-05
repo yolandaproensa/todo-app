@@ -2,11 +2,19 @@
     <section class="tarefas">
         {{#each tarefas}}
         <div class="tarefa">
-            <form>
-                <div>
-                    <input type="checkbox" id="tarefa-{{this.id}}">
+            <form action="">
+                {{#if this.completa}}
+                <div class="completa">
+                    <input type="checkbox" id="tarefa-{{this.id}}" checked>
                     <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
                 </div>
+
+                {{else}}
+                <div>
+                    <input type="checkbox" id="tarefa-{{this.id}}" onchange="completarTarefa({{this.id}})">
+                    <label for="tarefa-{{this.id}}">{{this.descricao}}</label>
+                </div>
+                {{/if}}
 
                 <button>
                     <img src="/imagens/X-icon.png" alt="ícone de X para excluir uma tarefa">

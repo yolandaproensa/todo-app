@@ -15,6 +15,24 @@ app.use(express.urlencoded({
 }))
 
 //Rotas
+app.post('/completar', (req, res) => {
+    const id = req.body.id
+
+    const sql = ` 
+    UPDATE tarefas
+    SET completa = '1'
+    WHERE id = ${ id }
+    `
+
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        res.redirect('/')
+    })
+})
+
 app.post('/criar', (req, res) => {
     const descricao = req.body.descricao
     const completa = 0
