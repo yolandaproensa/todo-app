@@ -15,6 +15,20 @@ app.use(express.urlencoded({
 }))
 
 //Rotas
+app.get('/limpartarefas', (req, res) => {
+    const sql = `
+    DELETE FROM tarefas
+    `
+
+    conexao.query(sql, (erro) => {
+        if (erro) {
+            return console.log(erro)
+        }
+
+        res.redirect('/')
+    })
+})
+
 app.post('/excluir', (req, res) => {
     const id = req.body.id
 
@@ -107,13 +121,13 @@ app.get('/completas', (req, res) => {
 
         const quantidadeTarefas = tarefas.length
 
-        resposta.render('completas', { tarefas, quantidadeTarefas })
+        res.render('completas', { tarefas, quantidadeTarefas })
     })
 })
 
 app.get('/ativas', (req, res) => {
     const sql = `
-    SELECT * FRROM tarefas
+    SELECT * FROM tarefas
     WHERE completa = 0`
 
     conexao.query(sql, (erro, dados) => {
